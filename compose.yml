@@ -1,0 +1,27 @@
+services:
+  postgres:
+    image: postgres:15-alpine
+    container_name: alchemy-db
+    environment:
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=654321Qw
+      - POSTGRES_DB=alchemy
+    volumes:
+      - alchemy:/var/lib/postgresql/data
+    ports:
+      - 6000:5432
+
+  pgadmin:
+    image: dpage/pgadmin4
+    ports:
+      - 8080:80
+    container_name: alchemy-pgadmin
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=root@mail.ru
+      - PGADMIN_DEFAULT_PASSWORD=1234
+    depends_on:
+      - postgres
+
+
+volumes:
+  alchemy:
